@@ -1,0 +1,49 @@
+{% extends 'ProyectoWebApp/base.html' %}
+{% block titulo %}Tienda{% endblock %}
+{% block contenido %}
+    {% load static %}
+    <section class="container">
+        <aside style="float: right;" class="mt-2 mx-1 row d-block">
+            <div class="col text-center">
+                <a href="{% url 'carrito' %}">
+                    <img src="{% static 'media/img/carritocompra.png' %}" width="55" alt="carrito de compra">
+                </a>
+            </div>
+            <a type="button" class="btn btn-primary" href="{% url 'carrito' %}">
+                Articulos <span class="badge badge-light bg-dark">{{ cantidades }}</span>
+            </a>
+            <a type="button" class="btn btn-warning" href="{% url 'carrito' %}">
+                $ <span class="badge badge-light bg-success">{{ importe_total }}</span>
+            </a>
+        </aside>
+        <div class="row">
+            <div class="card-group mt-2">
+                <div class="row">
+                    {% for producto in productos %}
+                        <div class="card col-3 mt-2">
+                            <img src="{{ producto.imagen.url }}" class="card-img-top" alt="" >
+                            <div class="card-body"> 
+                                <h4 class="card-title">{{ producto.nombre }}</h4>
+                                <div class="row justify-content-between">
+                                    <h5 class="card-text text-success col-12 align-self-center">
+                                        Hoy: € {{ producto.precio }}
+                                    </h5>
+                                    <a 
+                                        href="{% url 'carro:agregar' producto.id %}" 
+                                        class="col-12 btn btn-lg btn-primary">
+                                        <small>Agregar</small>
+                                    </a> 
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <small class="text-muted">Categoría : <strong>{{ producto.categorias }}</strong></small>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+<!--  -->

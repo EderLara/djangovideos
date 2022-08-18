@@ -1,0 +1,28 @@
+{% extends 'ProyectoWebApp/base.html' %}
+
+{% block titulo %}Servicios{% endblock %}
+
+{% block contenido %}
+    {% load static %}
+
+<section class="container">
+    <div class="row">
+        <div class="card-group mt-2">
+            <!-- Estructura para cada uno de los servicios registrados -->
+            {% for servicio in servicios %}
+                <div class="card col-4">
+                    <img src="{{ servicio.imagen.url }}" class="card-img-top col" height="500" alt="Servicio ofrecido" >
+                    <div class="card-body">
+                        <h5 class="card-title">{{ servicio.titulo }}</h5>
+                        <p class="card-text">{{ servicio.contenido }}</p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">{{ servicio.updated }}</small>
+                    </div>
+                </div>
+            {% endfor %}
+          </div>
+    </div>
+</section>
+
+{% endblock %}  

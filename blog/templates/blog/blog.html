@@ -1,0 +1,53 @@
+{% extends 'ProyectoWebApp/base.html' %}
+
+{% block titulo %}Blog{% endblock %}
+
+{% block contenido %}
+    {% load static %}
+
+    <section class="container">
+        <div class="row">
+          <div class="col-10">
+            {% for publicacion in publicaciones %}
+            <div class="card mb-3 mt-2">
+                <div class="row no-gutters">
+                  <div class="col-md-4">
+                    <img src="{{ publicacion.imagen.url }}" class="col-12" alt="Imagen de post">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title">{{ publicacion.titulo }}</h5>
+                      <p class="card-text">Autor: <strong class="text-capitalize">{{ publicacion.autor }}</strong></p>
+                      <p class="card-text">{{ publicacion.contenido }}</p>
+                      {% for categoria in publicacion.categorias.all %}
+                        <p class="card-text"><small class="text-primary">{{ categoria.nombre }}</small></p>
+                      {% endfor %}
+                      <p class="card-text"><small class="text-muted">{{ publicacion.created | date }}</small></p>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            {% endfor %}
+          </div>
+          <aside class="col-2">
+              <h3 class="bg-dark pt-2 pb-2 text-info px-2 text-center">Categorías:</h3>
+              {% for categoria in categorias %}
+                <a class="text-primary nav-link" href="{% url 'categoria' categoria.id %}"><strong>{{ categoria.nombre }}</strong></a>
+              {% endfor %}
+              <hr>
+              <h1 class="text-success text-center">Acerca de este blog</h1>
+              <p>
+                Este es un blog creado con fines informátivos, de carácter público y sin ánimo de lucro. y realizado en
+                compañia de:
+              </p>
+              <div class="col-12">
+                <img src="{% static 'media/img/logoview.png' %}" class="col-12" alt="">
+                <img src="{% static 'media/img/logo.png' %}" class="col-12" alt="">
+                <br>
+                <img src="{% static 'media/img/default.png' %}" class="col-12" alt="">
+              </div>
+          </aside>
+        </div>
+    </section>
+
+{% endblock %}  
